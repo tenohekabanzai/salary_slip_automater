@@ -291,6 +291,7 @@ app.post('/upload/bypt', upload.single('file'), async (req, res) => {
         header: {
             rows: 1
         },
+        // mapping to excel file cell locations
         columnToKey: byptmapping
     });
 
@@ -299,11 +300,9 @@ app.post('/upload/bypt', upload.single('file'), async (req, res) => {
     for (const i of data) {
         i.paymentDate = formatDate(i.paymentDate);
         i.dateOfJoin = formatDate(i.dateOfJoin);
-        // console.log(i);
+    
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
-
-        const date = new Date();
         
         let htmlfile = "";
         htmlfile = createHTML(htmlfile, i);
